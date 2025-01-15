@@ -1,0 +1,2 @@
+# dlt-fundamentals-course
+The dlt Fundamentals Course lessons can be found [here](https://github.com/dlt-hub/dlthub-education/tree/main/courses/dlt_fundamentals_dec_2024?utm_source=ActiveCampaign&utm_medium=email&utm_content=Last%20call%3A%20dlt%20Fundamentals%20Holiday%20Course&utm_campaign=Holiday%20course%20reminder%20Jan%2014th%202025)
