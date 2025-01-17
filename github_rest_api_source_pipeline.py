@@ -1,6 +1,5 @@
 import dlt
 from dlt.sources.rest_api import RESTAPIConfig, rest_api_source
-from dlt.sources.helpers.rest_client.paginators import PageNumberPaginator
 
 config: RESTAPIConfig = {
     "client": {
@@ -40,6 +39,36 @@ config: RESTAPIConfig = {
                 },
             },
         },
+        {
+            "name": "repos",
+            "endpoint": {
+                "path": "orgs/dlt-hub/repos",
+            },
+        },
+        {
+            "name": "pr_comments",
+            "endpoint": {
+                "path": "/repos/{owner}/{repo}/pulls/comments",
+                "params": {
+                    "owner": {
+                        "type": "resolve",
+                        "resource": "repos",
+                        "field": "owner['login']",
+                    },
+                    "repo": {
+                        "type": "resolve",
+                        "resource": "repos",
+                        "field": "name",
+                    },
+                    # using since parameter to incrementally load pr_comments
+                    "since": {
+                        "type": "incremental",
+                        "cursor_path": "updated_at",
+                        "initial_value": "2024-12-01"
+                    },
+                },
+            },
+        },
     ],
 }
 
@@ -50,6 +79,7 @@ pipeline = dlt.pipeline(
     pipeline_name="rest_api_github",
     destination="duckdb",
     dataset_name="rest_api_data",
+    progress="log",
     dev_mode=True,
 )
 
